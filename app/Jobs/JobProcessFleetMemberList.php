@@ -41,7 +41,6 @@ class JobProcessFleetMemberList implements ShouldQueue
      */
     public function handle()
     {
-        $esi = app(EsiClient::class);
         $server = $this->server === 'tranquility' ? 1 : 2;
         $memberMap = [];
         foreach ($this->memberList as $member) {
