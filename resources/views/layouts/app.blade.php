@@ -8,7 +8,7 @@
     <script src="https://cdn.razesoldier.cn/static/js/app.js" defer></script>
 
     <!-- Styles -->
-    <link href="https://cdn.razesoldier.cn/static/css/css.js" rel="stylesheet">
+    <link href="https://cdn.razesoldier.cn/static/css/app.css" rel="stylesheet">
 
     <title>@yield('title')</title>
 </head>
