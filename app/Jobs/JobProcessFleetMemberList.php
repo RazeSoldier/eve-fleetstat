@@ -14,6 +14,8 @@ class JobProcessFleetMemberList implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 0;
+    public $tries = 3;
     private Fleet $fleet;
     private string $server;
     private array $memberList;
