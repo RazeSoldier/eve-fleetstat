@@ -39,10 +39,30 @@
                     <el-table
                         :data="corpTableData"
                         style="width: 100%"
-                        :default-sort = "{prop: 'size', order: 'descending'}">>
+                        :default-sort = "{prop: 'size', order: 'descending'}"
+                        height="400">
                         <el-table-column
                             prop="name"
                             label="军团"
+                            width="400"
+                            sortable>
+                        </el-table-column>
+                        <el-table-column
+                            prop="size"
+                            label="人数"
+                            sortable>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                <div class="item">
+                    <el-table
+                        :data="allianceTableData"
+                        style="width: 100%"
+                        :default-sort = "{prop: 'size', order: 'descending'}"
+                        height="300">
+                        <el-table-column
+                            prop="name"
+                            label="联盟"
                             width="400"
                             sortable>
                         </el-table-column>
@@ -68,6 +88,7 @@
             return {
                 listTableData: [],
                 corpTableData: [],
+                allianceTableData: [],
             }
         },
         mounted() {
@@ -78,6 +99,7 @@
             fetch('/api/get-fleetmember-list/' + this.fleetHash).then(res => res.json()).then(json => {
                 this.listTableData = json.data;
                 const corpMap = {};
+                const allianceMap = {};
                 for (const key in this.listTableData) {
                     if (!this.listTableData.hasOwnProperty(key)) {
                         continue;
@@ -88,9 +110,18 @@
                     } else {
                         corpMap[corp] = 1;
                     }
+                    const alliance = this.listTableData[key].allianceName;
+                    if (allianceMap.hasOwnProperty(alliance)) {
+                        allianceMap[alliance]++;
+                    } else {
+                        allianceMap[alliance] = 1;
+                    }
                 }
                 for (const key in corpMap) {
                     this.corpTableData.push({name: key, size: corpMap[key]});
+                }
+                for (const key in allianceMap) {
+                    this.allianceTableData.push({name: key, size: allianceMap[key]});
                 }
             });
         }
